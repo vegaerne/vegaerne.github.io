@@ -36,6 +36,12 @@
           document.body.insertBefore(this.canvas, document.body.childNodes[0]);
           this.frameNo = 0;
           this.interval = setInterval(updateGameArea, 20);
+          window.addEventListener('keydown', function (e) {
+            myGameArea.key = e.keycode;
+          })
+          window.addEventListener('keyup', function (e) {
+            myGameArea.key = false;
+          })
           },
         clear : function () {
           this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -120,6 +126,13 @@
             myObstacles[i].x += -1;
           myObstacles[i].update();
         }
+
+        if (myGameArea.key && myGameArea.key == 37) {myGamePiece.speedX = -1; }
+        if (myGameArea.key && myGameArea.key == 39) {myGamePiece.speedX = 1; }
+        if (myGameArea.key && myGameArea.key == 38) {myGamePiece.speedX = -1; }
+        if (myGameArea.key && myGameArea.key == 40) {myGamePiece.speedX = 1; }
+
+
         myScore.text = "SCORE: " + myGameArea.frameNo;
         myScore.update();
         myGamePiece.newPos();
@@ -141,6 +154,6 @@
     <button onmousedown = "accelerate(-0.2)" onmouseup = "accelerate(0.05)">ACCELERATE</button>
     <p> Use the ACCELERATE button to stay in the air</p>
     <p>How long can you stay alive?</p>
-    <p>Ver 1.0</p>
+    <p>Ver 1.1</p>
   </body>
 </html>
