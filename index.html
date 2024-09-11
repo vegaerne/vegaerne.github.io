@@ -17,7 +17,7 @@
       var myScore;
 
       function startGame() {
-        myGamepiece = new gameObject(30, 30, "red", 10, 120);
+        myGamePiece = new gameObject(30, 30, "red", 10, 120);
         character2 = new gameObject(20, 20, "yellow", 20, 150);
 
         myGamePiece.gravity = 0.05;
@@ -57,10 +57,10 @@
           ctx = myGameArea.context;
           if (this.type == "text") {
             ctx.font = this.width + " " + this.height;
-            ctx.fillstyle = color;
+            ctx.fillStyle = color;
             ctx.fillText(this.text, this.x, this.y);
           } else {
-              ctx.fillstyle = color;
+              ctx.fillStyle = color;
               ctx.fillRect(this.x, this.y, this.width, this.height);
           }
         }
@@ -103,10 +103,10 @@
               return;
             }
         }
-        myGamearea.clear();
-        myGamearea.frameNo += 1;
+        myGameArea.clear();
+        myGameArea.frameNo += 1;
         if (myGameArea.frameNo == 1 || everyinterval(150)) {
-            x = myGamearea.canvas.width;
+            x = myGameArea.canvas.width;
           minHeight = 20;
           maxHeight = 200;
           height = Math.floor(Math.random() * (maxHeight - minHeight + 1) +minHeight);
@@ -124,7 +124,7 @@
         myScore.update();
         myGamePiece.newPos();
         myGamePiece.update();
-        charater2.updat();
+        character2.update();
       }
 
       function everyinterval(n) {
@@ -142,4 +142,4 @@
     <p> Use the ACCELERATE button to stay in the air</p>
     <p>How long can you stay alive?</p>
   </body>
-</html> 
+</html>
