@@ -106,7 +106,11 @@
       function updateGameArea() {
         var x, height, gap, minHeight, minGap, maxGap;
         for ( i = 0; i < myObstacles.length; i += 1) {
-            if (myGamePiece.crashWith(myObstacles[i]) || character2.crashWith(myObstacles[i])) {
+            if (myGamePiece.crashWith(myObstacles[i]))) {
+              return;
+            }
+        for ( i = 0; i < myObstacles.length; i += 1) {
+            if (character2.crashWith(myObstacles[i]))) {
               return;
             }
         }
@@ -139,10 +143,10 @@
         if (myGameArea.key && myGameArea.key == 38) {myGamePiece.speedY = -4; } //Up Arrow
         if (myGameArea.key && myGameArea.key == 40) {myGamePiece.speedY = 4; } //Down Arrow
 
-        if (character2.key && character2.key == 'a') {myGamePiece.speedX = -4; } //Left Arrow
-        if (character2.key && character2.key == 'd') {myGamePiece.speedX = 4; } // Right Arrow
-        if (character2.key && character2.key == 'w') {myGamePiece.speedY = -4; } //Up Arrow
-        if (character2.key && character2.key == 's') {myGamePiece.speedY = 4; } //Down Arrow
+        if (character2.key && character2.key == w) {myGamePiece.speedX = -4; } //Left Arrow
+        if (character2.key && character2.key == d) {myGamePiece.speedX = 4; } // Right Arrow
+        if (character2.key && character2.key == w) {myGamePiece.speedY = -4; } //Up Arrow
+        if (character2.key && character2.key == s) {myGamePiece.speedY = 4; } //Down Arrow
 
 
         myScore.text = "SCORE: " + myGameArea.frameNo;
@@ -150,6 +154,7 @@
         myGamePiece.newPos();
         myGamePiece.update();
         character2.update();
+        character2.newPos();
       }
 
       function everyinterval(n) {
@@ -159,6 +164,7 @@
 
       function accelerate(n) {
         myGamePiece.gravity = n;
+        character2.gravity = n;
       }
     </script>
 
@@ -166,6 +172,6 @@
     <button onmousedown = "accelerate(-0.2)" onmouseup = "accelerate(0.05)">ACCELERATE</button>
     <p> Use the ACCELERATE button to stay in the air</p>
     <p>How long can you stay alive?</p>
-    <p>Ver 1.11c</p>
+    <p>Ver 1.11d</p>
   </body>
 </html>
