@@ -21,6 +21,7 @@
         character2 = new gameObject(20, 20, "yellow", 20, 150);
 
         myGamePiece.gravity = 0.05;
+        character2.gravity = o.05;
         myScore  = new gameObject("30px", "Consolas", "black", 280, 40, "text");
 
         
@@ -105,7 +106,7 @@
       function updateGameArea() {
         var x, height, gap, minHeight, minGap, maxGap;
         for ( i = 0; i < myObstacles.length; i += 1) {
-            if (myGamePiece.crashWith(myObstacles[i])) {
+            if (myGamePiece.crashWith(myObstacles[i]) || character2.crashWith(myObstacles[i])) {
               return;
             }
         }
@@ -130,10 +131,18 @@
         myGamePiece.speedX = 0;
         myGamePiece.speedY = 0;
 
+        character2.speedX = 0;
+        character2.speedY = 0;
+
         if (myGameArea.key && myGameArea.key == 37) {myGamePiece.speedX = -4; } //Left Arrow
         if (myGameArea.key && myGameArea.key == 39) {myGamePiece.speedX = 4; } // Right Arrow
         if (myGameArea.key && myGameArea.key == 38) {myGamePiece.speedY = -4; } //Up Arrow
         if (myGameArea.key && myGameArea.key == 40) {myGamePiece.speedY = 4; } //Down Arrow
+
+        if (character2.key && character2.key == 'a') {myGamePiece.speedX = -4; } //Left Arrow
+        if (character2.key && character2.key == 'd') {myGamePiece.speedX = 4; } // Right Arrow
+        if (character2.key && character2.key == 'w') {myGamePiece.speedY = -4; } //Up Arrow
+        if (character2.key && character2.key == 's') {myGamePiece.speedY = 4; } //Down Arrow
 
 
         myScore.text = "SCORE: " + myGameArea.frameNo;
@@ -157,6 +166,6 @@
     <button onmousedown = "accelerate(-0.2)" onmouseup = "accelerate(0.05)">ACCELERATE</button>
     <p> Use the ACCELERATE button to stay in the air</p>
     <p>How long can you stay alive?</p>
-    <p>Ver 1.11a</p>
+    <p>Ver 1.11c</p>
   </body>
 </html>
