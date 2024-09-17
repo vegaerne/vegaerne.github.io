@@ -105,55 +105,73 @@
       }
 
       function updateGameArea() {
-        var x, height, gap, minHeight, minGap, maxGap;
-        for ( i = 0; i < myObstacles.length; i += 1) {
-            if (myGamePiece.crashWith(myObstacles[i])) {
-              return;
-            }
-        for ( i = 0; i < myObstacles.length; i += 1) {
-            if (character2.crashWith(myObstacles[i])) {
-              return;
-            }
-        }
-        
-        myGameArea.clear();
-        myGameArea.frameNo += 1;
-        if (myGameArea.frameNo == 1 || everyinterval(150)) {
-            x = myGameArea.canvas.width;
-          minHeight = 20;
-          maxHeight = 200;
-          height = Math.floor(Math.random() * (maxHeight - minHeight + 1) +minHeight);
-          minGap = 50;
-          maxGap = 200;
-          gap = Math.floor(Math.random() * (maxGap - minGap + 1) + minGap);
-          myObstacles.push(new gameObject(10, height, "green", x, 0));
-          myObstacles.push (new gameObject(10, x - height - gap, "green", x, height + gap));
-        }
-        for (i = 0; i < myObstacles.length; i+= 1) {
-            myObstacles[i].x += -1;
-          myObstacles[i].update();
-        }
+  var x, height, gap, minHeight, minGap, maxGap;
 
-        myGamePiece.speedX = 0;
-        myGamePiece.speedY = 0;
+  // Handle crashes for myGamePiece
+  for (i = 0; i < myObstacles.length; i += 1) {
+    if (myGamePiece.crashWith(myObstacles[i])) {
+      return;
+    }
+  }
+  
+  // Handle crashes for character2
+  for (i = 0; i < myObstacles.length; i += 1) {
+    if (character2.crashWith(myObstacles[i])) {
+      return;
+    }
+  }
+  
+  myGameArea.clear();
+  myGameArea.frameNo += 1;
 
-        character2.speedX = 0;
-        character2.speedY = 0;
+  // Creating new obstacles at intervals
+  if (myGameArea.frameNo == 1 || everyinterval(150)) {
+    x = myGameArea.canvas.width;
+    minHeight = 20;
+    maxHeight = 200;
+    height = Math.floor(Math.random() * (maxHeight - minHeight + 1) + minHeight);
+    minGap = 50;
+    maxGap = 200;
+    gap = Math.floor(Math.random() * (maxGap - minGap + 1) + minGap);
+    myObstacles.push(new gameObject(10, height, "green", x, 0));
+    myObstacles.push(new gameObject(10, x - height - gap, "green", x, height + gap));
+  }
 
-        if (myGameArea.key && myGameArea.key == 37) {myGamePiece.speedX = -4; } //Left Arrow
-        if (myGameArea.key && myGameArea.key == 39) {myGamePiece.speedX = 4; } // Right Arrow
-        if (myGameArea.key && myGameArea.key == 38) {myGamePiece.speedY = -4; } //Up Arrow
-        if (myGameArea.key && myGameArea.key == 40) {myGamePiece.speedY = 4; } //Down Arrow
+  // Move obstacles
+  for (i = 0; i < myObstacles.length; i += 1) {
+    myObstacles[i].x += -1;
+    myObstacles[i].update();
+  }
 
+  // Reset the speed of the objects
+  myGamePiece.speedX = 0;
+  myGamePiece.speedY = 0;
+  character2.speedX = 0;
+  character2.speedY = 0;
 
+  // Control myGamePiece with arrow keys
+  if (myGameArea.key && myGameArea.key == 37) {
+    myGamePiece.speedX = -4;
+  }
+  if (myGameArea.key && myGameArea.key == 39) {
+    myGamePiece.speedX = 4;
+  }
+  if (myGameArea.key && myGameArea.key == 38) {
+    myGamePiece.speedY = -4;
+  }
+  if (myGameArea.key && myGameArea.key == 40) {
+    myGamePiece.speedY = 4;
+  }
 
-        myScore.text = "SCORE: " + myGameArea.frameNo;
-        myScore.update();
-        myGamePiece.newPos();
-        myGamePiece.update();
-        character2.update();
-        character2.newPos();
-      }
+  // Update score and positions
+  myScore.text = "SCORE: " + myGameArea.frameNo;
+  myScore.update();
+  myGamePiece.newPos();
+  myGamePiece.update();
+  character2.newPos();
+  character2.update();
+}
+
 
       function everyinterval(n) {
           if ((myGameArea.frameNo / n) % 1 == 0) {return true;}
@@ -170,6 +188,6 @@
     <button onmousedown = "accelerate(-0.2)" onmouseup = "accelerate(0.05)">ACCELERATE</button>
     <p> Use the ACCELERATE button to stay in the air</p>
     <p>How long can you stay alive?</p>
-    <p>Ver 1.11e</p>
+    <p>Ver 1.11f</p>
   </body>
 </html>
