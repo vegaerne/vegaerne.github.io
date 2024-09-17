@@ -107,14 +107,15 @@
       function updateGameArea() {
         var x, height, gap, minHeight, minGap, maxGap;
         for ( i = 0; i < myObstacles.length; i += 1) {
-            if (myGamePiece.crashWith(myObstacles[i]))) {
+            if (myGamePiece.crashWith(myObstacles[i])) {
               return;
             }
         for ( i = 0; i < myObstacles.length; i += 1) {
-            if (character2.crashWith(myObstacles[i]))) {
+            if (character2.crashWith(myObstacles[i])) {
               return;
             }
         }
+        
         myGameArea.clear();
         myGameArea.frameNo += 1;
         if (myGameArea.frameNo == 1 || everyinterval(150)) {
