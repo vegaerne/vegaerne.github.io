@@ -163,6 +163,19 @@
     myGamePiece.speedY = 4;
   }
 
+  if (myGameArea.key && myGameArea.key == 65) {
+    character2.speedX -4;
+  }
+  if (myGameArea.key && myGameArea.key == 68) {
+    character2.speedX = 4;
+  }
+  if (myGameArea.key && myGameArea.key == 87) {
+    character2.speedY = -4;
+  }
+  if (myGameArea.key && myGameArea.key == 83) {
+    character2.speedY = 4;
+  }
+
   // Update score and positions
   myScore.text = "SCORE: " + myGameArea.frameNo;
   myScore.update();
