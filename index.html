@@ -52,6 +52,10 @@
 
       function gameObject(width, height, color, x, y, type) {
         this.type = type;
+        if (type == "image") {
+          this.image = new Image();
+          this.image.src = color;
+           }
         this.score = 0;
         this.width = width;
         this.height = height;
@@ -70,6 +74,15 @@
           } else {
               ctx.fillStyle = color;
               ctx.fillRect(this.x, this.y, this.width, this.height);
+          }
+                if (type == "image") {
+            ctx.drawImage(this.image,
+              this.x,
+              this.y,
+              this.width, this.height);
+          } else {
+            ctx.fillStyle = color;
+            ctx.fillRect(this.x, this.y, this.width, this.height);
           }
         }
         this.newPos = function() {
