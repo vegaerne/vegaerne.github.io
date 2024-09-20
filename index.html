@@ -18,7 +18,7 @@
       var character2;
 
       function startGame() {
-        myGamePiece = new gameObject(29, 16, "penguin.gif", 10, "image");
+        myGamePiece = new gameObject(29, 16, "penguin.gif", 10, 120, "image");
         character2 = new gameObject(20, 20, "yellow", 20, 150);
 
         myGamePiece.gravity = 0.05;
@@ -71,11 +71,8 @@
             ctx.font = this.width + " " + this.height;
             ctx.fillStyle = color;
             ctx.fillText(this.text, this.x, this.y);
-          } else {
-              ctx.fillStyle = color;
-              ctx.fillRect(this.x, this.y, this.width, this.height);
-          }
-                if (type == "image") {
+          } 
+            else if (type == "image") {
             ctx.drawImage(this.image,
               this.x,
               this.y,
@@ -177,7 +174,7 @@
   }
 
   if (myGameArea.key && myGameArea.key == 65) {
-    character2.speedX -4;
+    character2.speedX = -4;
   }
   if (myGameArea.key && myGameArea.key == 68) {
     character2.speedX = 4;
