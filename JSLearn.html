@@ -7,11 +7,11 @@
             background-color: #f1f1f1;
         }
     </style>
-    <head> Test Game 1.1</head>
+    <head> Test Game 1.1a</head>
     <body onload = "startGame()">
         <script>
-            function startGame(); {
-                myGameArea.start;
+            function startGame() {
+                myGameArea.start();
                 myGamePiece = new component(30, 30, "red", 10, 120);
             }
     
@@ -31,13 +31,13 @@
     
             function component(width, height, color, x, y) {
                 this.width = width;
-                this.height - height;
+                this.height = height;
                 this.x = x;
                 this.y = y;
                 this.update = function(){
-                    ctx - myGameArea.context;
-                    ctx.fillstyle = color;
-                    ctx.fillsRect(this.x, this.y, this.width, this.height);
+                    ctx = myGameArea.context;
+                    ctx.fillStyle = color;
+                    ctx.fillRect(this.x, this.y, this.width, this.height);
                 }
             }
             
