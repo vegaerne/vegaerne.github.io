@@ -59,10 +59,10 @@
                 myGameArea.clear();
                 myGamePiece.speedX = 0;
                 myGamePiece.speedY = 0;
-                if (myGameArea.ke && myGameArea.keys[37]) {myGamePiece.speedX = -1; }
-                if (myGameArea.ke && myGameArea.keys[39]) {myGamePiece.speedX = 1; }
-                if (myGameArea.ke && myGameArea.key[38]) {myGamePiece.speedY = -1; }
-                if (myGameArea.ke && myGameArea.keys[40]) {myGamePiece.speedY = 1; }
+                if (myGameArea.keys && myGameArea.keys[37]) {myGamePiece.speedX = -1; }
+                if (myGameArea.keys && myGameArea.keys[39]) {myGamePiece.speedX = 1; }
+                if (myGameArea.keys && myGameArea.key[38]) {myGamePiece.speedY = -1; }
+                if (myGameArea.keys && myGameArea.keys[40]) {myGamePiece.speedY = 1; }
                 if (myGameArea.x && myGameArea.y) {
                     myGamePiece.x = myGameArea.x;
                     myGamePiece.y = myGameArea.y;
