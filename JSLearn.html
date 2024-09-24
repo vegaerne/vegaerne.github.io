@@ -8,7 +8,7 @@
             background-color: #f1f1f1;
         }
     </style>
-    <head> Test Game 1.1q</head>
+    <head> Test Game 1.1r</head>
     <body onload = "startGame()">
         <script>
 
@@ -112,6 +112,7 @@
             
             function updateGameArea() {
                 var x, height, gap, minHeight, maxHeight, minGap, maxGap, point;
+                var fly;
                 for (i = 0; i < myObstacles.length; i += 1) {
                     if (myGamePiece.crashWith(myObstacles[i])) {
                         myGameArea.stop();
@@ -137,13 +138,20 @@
                 }
                 myGamePiece.speedX = 0;
                 myGamePiece.speedY = 0;
-                if (myGameArea.keys && myGameArea.keys[37]) {myGamePiece.speedX = -1; }
-                if (myGameArea.keys && myGameArea.keys[39]) {myGamePiece.speedX = 1; }
-                if (myGameArea.keys && myGameArea.keys[38]) {myGamePiece.speedY = -1; myGamePiece.image.src = "Penguin2.png";}
-                if (myGameArea.keys && myGameArea.keys[40]) {myGamePiece.speedY = 1, myGamePiece.image.src = "Penguin2.png";}
+                if (myGameArea.keys && myGameArea.keys[37]) {myGamePiece.speedX = -1, fly = false;}
+                if (myGameArea.keys && myGameArea.keys[39]) {myGamePiece.speedX = 1, fly = false;}
+                if (myGameArea.keys && myGameArea.keys[38]) {myGamePiece.speedY = -1; myGamePiece.image.src = "Penguin2.png", fly = true;}
+                if (myGameArea.keys && myGameArea.keys[40]) {myGamePiece.speedY = 1, myGamePiece.image.src = "Penguin2.png"; fly = true;}
                 if (myGameArea.x && myGameArea.y) {
                     myGamePiece.x = myGameArea.x;
                     myGamePiece.y = myGameArea.y;
+                }
+                if (fly = true && everyinterval(20))
+                {
+                    myGamePiece.update();
+                    myGamePiece.image.src = "Penguin1.png";
+                    myGamePiece.update();
+                    myGamePiece.image.src = "Penguin2.png";
                 }
                 myScore.text = "SCORE:" + myGameArea.frameNo;
                 myScore.update();
