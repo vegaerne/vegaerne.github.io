@@ -8,16 +8,18 @@
             background-color: #f1f1f1;
         }
     </style>
-    <head> Test Game 1.1l</head>
+    <head> Test Game 1.1m</head>
     <body onload = "startGame()">
         <script>
 
             var myGamePiece;
             var myObstacles = [];
+            var myScore;
 
             function startGame() {
                 myGamePiece = new component(30, 30, "red", 10, 120);
                 myGameArea.start();
+                myScore = new component("30px", "Consolas", "black", 280, 40, "text");
             }
     
             var myGameArea = {
@@ -63,8 +65,14 @@
                 this.y = y;
                 this.update = function(){
                     ctx = myGameArea.context;
-                    ctx.fillStyle = color;
-                    ctx.fillRect(this.x, this.y, this.width, this.height);
+                    if (this.type == "text") {
+                        ctx.font = this.width + " " + this.height;
+                        ctx.fillStyle = color;
+                        ctx.fillText(this.text, this.x, this.y);
+                    } else {
+                        ctx.fillStyle = color;
+                        ctx.fillRect(this.x, this.y, this.width, this.height);
+                    }
                 }
                 this.newPos = function() {
                     this.x += this.speedX;
@@ -125,6 +133,8 @@
                     myGamePiece.x = myGameArea.x;
                     myGamePiece.y = myGameArea.y;
                 }
+                myScore.text = "SCORE:" + myGameArea.frameNo;
+                myScore.update();
                 myGamePiece.newPos();
                 myGamePiece.update();
             }
