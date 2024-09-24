@@ -8,7 +8,7 @@
             background-color: #f1f1f1;
         }
     </style>
-    <head> Test Game 1.1g</head>
+    <head> Test Game 1.1h</head>
     <body onload = "startGame()">
         <script>
 
@@ -83,7 +83,7 @@
                     if ((mybottom < othertop) ||
                     (mytop > otherbottom) ||
                     (myright < otherleft) ||
-                    (myleft > otheright)) {
+                    (myleft > otherright)) {
                         crash = false;
                     }
                     return crash;
@@ -119,8 +119,8 @@
                     myGamePiece.x = myGameArea.x;
                     myGamePiece.y = myGameArea.y;
                 }
-                myObstacle.x += -1;
-                myObstacle.update();
+                myObstacles.x += -1;
+                myObstacles.update();
                 myGamePiece.newPos();
                 myGamePiece.update();
             }
