@@ -8,7 +8,7 @@
             background-color: #f1f1f1;
         }
     </style>
-    <head> Test Game 1.1v</head>
+    <head> Test Game 1.1w</head>
     <body onload = "startGame()">
         <script>
 
@@ -146,11 +146,11 @@
                     myGamePiece.x = myGameArea.x;
                     myGamePiece.y = myGameArea.y;
                 }
-                if (fly == false && everyinterval(20) && e.keyCode == true)
+                if (fly == true && everyinterval(20) && myGameArea.keys == true)
                 {
                     myGamePiece.image.src = "Penguin2.png";
                 }
-                    else if (e.keyCode == false)
+                    else if (myGameArea.keys == false)
                 {
                     myGamePiece.image.src = "Penguin1.png"
                 }
