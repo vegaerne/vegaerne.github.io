@@ -8,7 +8,7 @@
             background-color: #f1f1f1;
         }
     </style>
-    <head> Test Game 1.1k</head>
+    <head> Test Game 1.1l</head>
     <body onload = "startGame()">
         <script>
 
@@ -104,10 +104,10 @@
                     x = myGameArea.canvas.width;
                     minHeight = 20;
                     maxHeight = 200;
-                    height = Math.floor(Math.random()*(maxHeight-minHeight+1)+minheight);
+                    height = Math.floor(Math.random() * (maxHeight - minHeight + 1) + minHeight);
                     minGap = 50;
                     maxGap = 200;
-                    gap = Math.floor(Math.random()*(maxGap-minGap+1)+minGap);
+                    gap = Math.floor(Math.random() * (maxGap-minGap + 1) + minGap);
                     myObstacles.push(new component(10, height, "green", x, 0));
                     myObstacles.push(new component(10, x - height - gap, "green", x, height + gap));
                 }
