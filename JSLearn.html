@@ -26,6 +26,7 @@
                     this.interval = setInterval(updateGameArea, 20);
                     window.addEventListener('keyup', function (e) {
                         myGameArea.keys = (myGameArea.keys || []);
+                        myGameArea.keys [e.keyCode] = true;
                     })
                     window.addEventListener('touchmove', function (e) {
                         myGameArea.x = e.touches[0].screenX;
