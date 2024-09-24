@@ -8,7 +8,7 @@
             background-color: #f1f1f1;
         }
     </style>
-    <head> Test Game 1.1r</head>
+    <head> Test Game 1.1s</head>
     <body onload = "startGame()">
         <script>
 
@@ -36,7 +36,7 @@
                         myGameArea.keys[e.keyCode] = true;
                     })
                     window.addEventListener('keyup', function (e) {
-                        myGameArea.keys [e.keyCode] = (e.type == "keydown");
+                        myGameArea.keys [e.keyCode] = false;
                     })
                     window.addEventListener('touchmove', function (e) {
                         myGameArea.x = e.touches[0].screenX;
@@ -146,7 +146,7 @@
                     myGamePiece.x = myGameArea.x;
                     myGamePiece.y = myGameArea.y;
                 }
-                if (fly = true && everyinterval(20))
+                if (fly = true && everyinterval(20) && e.keyCode == true)
                 {
                     myGamePiece.update();
                     myGamePiece.image.src = "Penguin1.png";
