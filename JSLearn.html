@@ -8,7 +8,7 @@
             background-color: #f1f1f1;
         }
     </style>
-    <head> Test Game 1.1c</head>
+    <head> Test Game 1.1d</head>
     <body onload = "startGame()">
         <script>
             function startGame() {
@@ -24,9 +24,12 @@
                     this.context = this.canvas.getContext("2d");
                     document.body.insertBefore(this.canvas, document.body.childNodes[0]);
                     this.interval = setInterval(updateGameArea, 20);
-                    window.addEventListener('keyup', function (e) {
+                    window.addEventListener('keydown', function (e) {
                         myGameArea.keys = (myGameArea.keys || []);
-                        myGameArea.keys [e.keyCode] = true;
+                        myGameArea.keys[e.keyCode] = e(e.type == "keydown")
+                    })
+                    window.addEventListener('keyup', function (e) {
+                        myGameArea.keys [e.keyCode] = (e.type == "keydown");
                     })
                     window.addEventListener('touchmove', function (e) {
                         myGameArea.x = e.touches[0].screenX;
@@ -62,7 +65,7 @@
                 myGamePiece.speedY = 0;
                 if (myGameArea.keys && myGameArea.keys[37]) {myGamePiece.speedX = -1; }
                 if (myGameArea.keys && myGameArea.keys[39]) {myGamePiece.speedX = 1; }
-                if (myGameArea.keys && myGameArea.key[38]) {myGamePiece.speedY = -1; }
+                if (myGameArea.keys && myGameArea.keys[38]) {myGamePiece.speedY = -1; }
                 if (myGameArea.keys && myGameArea.keys[40]) {myGamePiece.speedY = 1; }
                 if (myGameArea.x && myGameArea.y) {
                     myGamePiece.x = myGameArea.x;
