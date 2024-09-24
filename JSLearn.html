@@ -8,12 +8,13 @@
             background-color: #f1f1f1;
         }
     </style>
-    <head> Test Game 1.1e</head>
+    <head> Test Game 1.1f</head>
     <body onload = "startGame()">
         <script>
             function startGame() {
-                myGameArea.start();
                 myGamePiece = new component(30, 30, "red", 10, 120);
+                myObstacle = new component(10, 200, "green", 300, 120);
+                myGameArea.start();
             }
     
             var myGameArea = {
@@ -38,6 +39,9 @@
                 },
                 clear : function() {
                     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                },
+                stop : function() {
+                    clearInterval(this.interval);
                 }
             }
     
@@ -57,9 +61,30 @@
                     this.x += this.speedX;
                     this.y += this.speedY;
                 }
+                this.crashWith = function(otherobj) {
+                    var myleft = this.x;
+                    var myright = this.x + (this.width);
+                    var mytop = this.y;
+                    var mybottom = this.y + (this.height);
+                    var otherleft = otherobj.x;
+                    var otherright = otherobj.x + (this.width);
+                    var othertop = otherobj.y;
+                    var otherbottom = otherobj.y + (this.height);
+                    var crash = true;
+                    if ((mybottom < othertop) ||
+                    (mytop > otherbottom) ||
+                    (myright < otherleft) ||
+                    (myleft > otheright)) {
+                        crash = false;
+                    }
+                    return crash;
+                }
             }
             
             function updateGameArea() {
+                if (myGamePiece.crashWith(myObstacle)) {
+                    myGameArea.stop();
+                } {
                 myGameArea.clear();
                 myGamePiece.speedX = 0;
                 myGamePiece.speedY = 0;
@@ -71,9 +96,12 @@
                     myGamePiece.x = myGameArea.x;
                     myGamePiece.y = myGameArea.y;
                 }
+                myObstacle.x += -1;
+                myObstacle.update();
                 myGamePiece.newPos();
                 myGamePiece.update();
             }
+        }
         </script>
     
     </body>
