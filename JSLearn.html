@@ -15,6 +15,7 @@
             var myGamePiece;
             var myObstacles = [];
             var myScore;
+            var frameCounter = 0;
 
             function startGame() {
                 myGamePiece = new component(30,20, "Penguin1.png", 10, 120, "image");
@@ -157,14 +158,11 @@
                     myGamePiece.y = myGameArea.y;
                 }
 
-                if (everyinterval(20) && myGameArea.keys[40] == true || myGameArea.keys[38] == true)
-                {
-                    for (let i = 0; (i/2) != 0; i++)
-                    {
-                        myGamePiece.image.src = "Penguin2.png";
-                    }
-                } else {
-                    myGamePiece.image.src = "Peguin1.png";
+                framecounter++
+                if (myGameArea.keys && myGameArea.keys[38] || myGameArea.keys && myGameArea.keys[40]) {
+                    myGamePiece.image.src = "Penguin2.png";
+                } else if (framecounter % 30 == 0) {
+                    myGamePiece.image.src = "Penguin1.png"
                 }
                 myScore.text = "SCORE:" + myGameArea.frameNo;
                 myScore.update();
