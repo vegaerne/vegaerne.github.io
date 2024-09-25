@@ -8,7 +8,7 @@
             background-color: #f1f1f1;
         }
     </style>
-    <head> Test Game 1.1y</head>
+    <head> Test Game 1.1z</head>
     <body onload = "startGame()">
         <script>
 
@@ -33,10 +33,10 @@
                     this.interval = setInterval(updateGameArea, 20);
                     window.addEventListener('keydown', function (e) {
                         myGameArea.keys = (myGameArea.keys || []);
-                        myGameArea.keys[e.keyCode] = false;
+                        myGameArea.keys[e.keyCode] = true;
                     })
                     window.addEventListener('keyup', function (e) {
-                        myGameArea.keys [e.keyCode] = true;
+                        myGameArea.keys [e.keyCode] = false;
                     })
                     window.addEventListener('touchmove', function (e) {
                         myGameArea.x = e.touches[0].screenX;
@@ -146,19 +146,25 @@
                     myGamePiece.speedX = 1; 
                 }
                 if (myGameArea.keys && myGameArea.keys[38]) {
-                    myGamePiece.speedY = -1;  myGamePiece.image.src = "Penguin2.png";
+                    myGamePiece.speedY = -1;
                 }
                 if (myGameArea.keys && myGameArea.keys[40]) {
-                    myGamePiece.speedY = 1, myGamePiece.image.src = "Penguin2.png";
+                    myGamePiece.speedY = 1;
                 }
 
                 if (myGameArea.x && myGameArea.y) {
                     myGamePiece.x = myGameArea.x;
                     myGamePiece.y = myGameArea.y;
                 }
-                if (everyinterval(20) && myGameArea.keys == true)
+
+                if (everyinterval(20) && myGameArea.keys[40] == true || myGameArea.keys[38] == true)
                 {
-                    myGamePiece.image.src = "Penguin2.png";
+                    for (let i = 0; (i/2) != 0; i++)
+                    {
+                        myGamePiece.image.src = "Peguin2.png";
+                    }
+                } else {
+                    myGamePiece.image.src = "Peguin1.png";
                 }
                 myScore.text = "SCORE:" + myGameArea.frameNo;
                 myScore.update();
@@ -168,4 +174,4 @@
         </script>
     
     </body>
-</html>
+</html>(myGameArea.frameNo / n) % 1 == 0
