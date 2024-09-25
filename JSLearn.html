@@ -8,7 +8,7 @@
             background-color: #f1f1f1;
         }
     </style>
-    <head> Test Game 1.2</head>
+    <head> Test Game 1.3</head>
     <body onload = "startGame()">
         <script>
 
@@ -158,10 +158,10 @@
                     myGamePiece.y = myGameArea.y;
                 }
 
-                framecounter++
-                if (myGameArea.keys && myGameArea.keys[38] || myGameArea.keys && myGameArea.keys[40]) {
+                frameCounter++
+                if (everyinterval(20) && myGameArea.keys && myGameArea.keys[38] || myGameArea.keys && myGameArea.keys[40]) {
                     myGamePiece.image.src = "Penguin2.png";
-                } else if (framecounter % 30 === 0) {
+                } else if (framecounter % 50 === 0) {
                     myGamePiece.image.src = "Penguin1.png"
                 }
                 myScore.text = "SCORE:" + myGameArea.frameNo;
