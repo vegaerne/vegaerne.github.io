@@ -138,21 +138,27 @@
                 }
                 myGamePiece.speedX = 0;
                 myGamePiece.speedY = 0;
-                if (myGameArea.keys && myGameArea.keys[37]) {myGamePiece.speedX = -1, fly = false;}
-                if (myGameArea.keys && myGameArea.keys[39]) {myGamePiece.speedX = 1, fly = false;}
-                if (myGameArea.keys && myGameArea.keys[38]) {myGamePiece.speedY = -1; myGamePiece.image.src = "Penguin2.png", fly = true;}
-                if (myGameArea.keys && myGameArea.keys[40]) {myGamePiece.speedY = 1, myGamePiece.image.src = "Penguin2.png"; fly = true;}
+
+                if (myGameArea.keys && myGameArea.keys[37]) {
+                    myGamePiece.speedX = -1;
+                }
+                if (myGameArea.keys && myGameArea.keys[39]) {
+                    myGamePiece.speedX = 1; 
+                }
+                if (myGameArea.keys && myGameArea.keys[38]) {
+                    myGamePiece.speedY = -1;  myGamePiece.image.src = "Penguin2.png";
+                }
+                if (myGameArea.keys && myGameArea.keys[40]) {
+                    myGamePiece.speedY = 1, myGamePiece.image.src = "Penguin2.png";
+                }
+
                 if (myGameArea.x && myGameArea.y) {
                     myGamePiece.x = myGameArea.x;
                     myGamePiece.y = myGameArea.y;
                 }
-                if (fly == true && everyinterval(20) && myGameArea.keys == true)
+                if (everyinterval(20) && myGameArea.keys == true)
                 {
                     myGamePiece.image.src = "Penguin2.png";
-                }
-                    else if (myGameArea.keys == false)
-                {
-                    myGamePiece.image.src = "Penguin1.png"
                 }
                 myScore.text = "SCORE:" + myGameArea.frameNo;
                 myScore.update();
