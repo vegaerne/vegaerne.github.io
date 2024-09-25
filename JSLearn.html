@@ -161,7 +161,7 @@
                 framecounter++
                 if (myGameArea.keys && myGameArea.keys[38] || myGameArea.keys && myGameArea.keys[40]) {
                     myGamePiece.image.src = "Penguin2.png";
-                } else if (framecounter % 30 == 0) {
+                } else if (framecounter % 30 === 0) {
                     myGamePiece.image.src = "Penguin1.png"
                 }
                 myScore.text = "SCORE:" + myGameArea.frameNo;
