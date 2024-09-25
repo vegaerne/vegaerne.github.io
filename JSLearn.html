@@ -159,7 +159,7 @@
                 }
 
                 frameCounter++
-                if (everyinterval(20) && myGameArea.keys && myGameArea.keys[38] || myGameArea.keys && myGameArea.keys[40]) {
+                if (myGameArea.keys && myGameArea.keys[38] || myGameArea.keys && myGameArea.keys[40]) {
                     myGamePiece.image.src = "Penguin2.png";
                 } else if (framecounter % 50 === 0) {
                     myGamePiece.image.src = "Penguin1.png"
