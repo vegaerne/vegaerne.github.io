@@ -6,7 +6,7 @@
             border: 1px solid #d3d3d3;
         }
     </style>
-    <head> Test Game 1.4c</head>
+    <head> Test Game 1.4d</head>
     <body onload = "startGame()">
         <script>
 
@@ -137,7 +137,7 @@
                 myBackground_Ocean.x -= speedOcean;
                 myBackground_Ground.x -= speedGround;
 
-                let overlap = 1;
+                let overlap = 2;
 
                 if (myBackground_Sky.x <= -myBackground_Sky.width) {
                     myBackground_Sky.x = 0 - overlap;
@@ -157,10 +157,18 @@
                 myBackground_Ocean.update();
                 myBackground_Ground.update();
 
-                ctx.drawImage(myBackground_Sky.image, myBackground_Sky.x + myBackground_Sky.width, myBackground_Sky.y, myBackground_Sky.width, myBackground_Sky.height);
-                ctx.drawImage(myBackground_Mountains.image, myBackground_Mountains.x + myBackground_Mountains.width, myBackground_Mountains.y, myBackground_Mountains.width, myBackground_Mountains.height);
-                ctx.drawImage(myBackground_Ocean.image, myBackground_Ocean.x + myBackground_Ocean.width, myBackground_Ocean.y, myBackground_Ocean.width, myBackground_Ocean.height);
-                ctx.drawImage(myBackground_Ground.image, myBackground_Ground.x + myBackground_Ground.width, myBackground_Ground.y, myBackground_Ground.width, myBackground_Ground.height);
+                ctx.drawImage(myBackground_Sky.image, myBackground_Sky.x, myBackground_Sky.y, myBackground_Sky.width, myBackground_Sky.height);
+                ctx.drawImage(myBackground_Sky.image, myBackground_Sky.x + myBackground_Sky.width - overlap, myBackground_Sky.y, myBackground_Sky.width, myBackground_Sky.height);
+
+                ctx.drawImage(myBackground_Mountains.image, myBackground_Mountains.x, myBackground_Mountains.y, myBackground_Mountains.width, myBackground_Mountains.height);
+                ctx.drawImage(myBackground_Mountains.image, myBackground_Mountains.x + myBackground_Mountains.width - overlap, myBackground_Mountains.y, myBackground_Mountains.width, myBackground_Mountains.height);
+
+                ctx.drawImage(myBackground_Ocean.image, myBackground_Ocean.x, myBackground_Ocean.y, myBackground_Ocean.width, myBackground_Ocean.height);
+                ctx.drawImage(myBackground_Ocean.image, myBackground_Ocean.x + myBackground_Ocean.width - overlap, myBackground_Ocean.y, myBackground_Ocean.width, myBackground_Ocean.height);
+
+                ctx.drawImage(myBackground_Ground.image, myBackground_Ground.x, myBackground_Ground.y, myBackground_Ground.width, myBackground_Ground.height);
+                ctx.drawImage(myBackground_Ground.image, myBackground_Ground.x + myBackground_Ground.width - overlap, myBackground_Ground.y, myBackground_Ground.width, myBackground_Ground.height);
+
 
                 myGameArea.frameNo += 1;
                 if (myGameArea.frameNo == 1 || everyinterval(150)) {
