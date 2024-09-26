@@ -4,7 +4,6 @@
     <style>
         canvas {
             border: 1px solid #d3d3d3;
-            background-color: blue;
         }
     </style>
     <head> Test Game 1.3</head>
@@ -15,12 +14,18 @@
             var myObstacles = [];
             var myScore;
             var frameCounter = 0;
-            var myBackground;
+            var myBackground_Sky;
+            var myBackground_Moutains;
+            var myBackground_Ocean;
+            var myBackground_Ground;
 
             function startGame() {
                 myGamePiece = new component(30,20, "Penguin1.png", 10, 120, "image");
                 myScore = new component("30px", "Consolas", "black", 280, 40, "text");
-                //myBackground = new component(480, 270, "blue", 0, 0,);
+                myBackground_Sky = new component(myGameArea.canvas.width, myGameArea.canvas.height, "Sky.png", 0, 0, "image");
+                myBackground_Mountains = new component(myGameArea.canvas.width, myGameArea.canvas.height, "Background_Mountains.png", 0, 0, "image");
+                myBackground_Ocean = new component(myGameArea.canvas.width, myGameArea.canvas.height, "Ocean.png", 0, 0, "image");
+                myBackground_Ground = new component(myGameArea.canvas.width, myGameArea.canvas.height, "Background_Ground.png", 0, 0, "image");
                 myGameArea.start();
             }
     
@@ -122,6 +127,29 @@
                     }
                 }
                 myGameArea.clear();
+                var speedSky = .5;
+                var speedMountain = .75;
+                var speedOcean = 1;
+                var speedGround = 1.1;
+
+                myBackground_Sky.x -= speedSky;
+                myBackground_Moutains -= speedMountain;
+                myBackground_Ocean -= speedOcean;
+                myBackground_Ground -= speedGround;
+
+                if (myBackground_Sky.x <= -myBackground_Sky.width) {
+                    myBackground_Sky.x = 0;
+                }
+                if (myBackground_Mountains.x <= -myBackground_Mountains.width) {
+                    myBackground_Moutains.x = 0;
+                }
+                if (myBackground_Ocean.x <= -myBackground_Ocean.width) {
+                    myBackground_Ocean.x = 0;
+                }
+                if (myBackground_Ground.x <= -myBackground_Ground.width) {
+                    myBackground_Ground.x = 0;
+                }
+
                 myGameArea.frameNo += 1;
                 if (myGameArea.frameNo == 1 || everyinterval(150)) {
                     x = myGameArea.canvas.width;
@@ -176,6 +204,11 @@
                         myGamePiece.image.src = "Penguin2.png";
                     }
                 }
+                myBackground_Sky.update();
+                myBackground_Moutains.update();
+                myBackground_Ocean.update();
+                myBackground_Ground.update();
+                myBackground.update();
                 myScore.text = "SCORE:" + myGameArea.frameNo;
                 myScore.update();
                 myGamePiece.newPos();
@@ -185,3 +218,7 @@
     
     </body>
 </html>
+var myBackground_Sky;
+            var myBackground_Moutains;
+            var myBackground_Ocean;
+            var myBackground_Ground;
