@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <style>
@@ -158,11 +157,22 @@
                     myGamePiece.y = myGameArea.y;
                 }
 
-                frameCounter++
-                if (myGameArea.keys && myGameArea.keys[38] || myGameArea.keys && myGameArea.keys[40]) {
-                    myGamePiece.image.src = "Penguin2.png";
-                } else if (frameCounter % 50 === 0) {
-                    myGamePiece.image.src = "Penguin1.png"
+                let fastInterval = 10;
+                let slowInterval = 50;
+
+                frameCounter++;
+                if (myGameArea.keys && (myGameArea.keys[38] || myGameArea.keys[40])) {
+                    if (frameCounter % fastInterval < fastInterval / 2) {
+                        myGamePiece.image.src = "Penguin1.png";
+                    } else {
+                        myGamePiece.image.src = "Penguin2.png";
+                    }
+                } else {
+                    if (frameCounter % slowInterval < slowInterval /2) {
+                        myGamePiece.image.src = "Penguin1.png";
+                    } else {
+                        myGamePiece.image.src = "Penguin2.png";
+                    }
                 }
                 myScore.text = "SCORE:" + myGameArea.frameNo;
                 myScore.update();
