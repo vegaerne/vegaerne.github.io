@@ -6,7 +6,7 @@
             border: 1px solid #d3d3d3;
         }
     </style>
-    <head> Test Game 1.4a</head>
+    <head> Test Game 1.4b</head>
     <body onload = "startGame()">
         <script>
 
@@ -22,10 +22,10 @@
             function startGame() {
                 myGamePiece = new component(30,20, "Penguin1.png", 10, 120, "image");
                 myScore = new component("30px", "Consolas", "black", 280, 40, "text");
-                myBackground_Sky = new component(myGameArea.canvas.width, myGameArea.canvas.height, "Sky.png", 0, 0, "image");
-                myBackground_Mountains = new component(myGameArea.canvas.width, myGameArea.canvas.height, "Background_Mountains.png", 0, 0, "image");
-                myBackground_Ocean = new component(myGameArea.canvas.width, myGameArea.canvas.height, "Ocean.png", 0, 0, "image");
-                myBackground_Ground = new component(myGameArea.canvas.width, myGameArea.canvas.height, "Background_Ground.png", 0, 0, "image");
+                myBackground_Sky = new component(480, 270, "Sky.png", 0, 0, "image");
+                myBackground_Mountains = new component(480, 270, "Background_Mountains.png", 0, 0, "image");
+                myBackground_Ocean = new component(480, 270, "Ocean.png", 0, 0, "image");
+                myBackground_Ground = new component(480, 270, "Background_Ground.png", 0, 0, "image");
                 myGameArea.start();
             }
     
