@@ -155,6 +155,11 @@
                 myBackground_Ocean.update();
                 myBackground_Ground.update();
 
+                ctx.drawImage(myBackground_Sky.image, myBackground_Sky.x + myBackground_Sky.width, myBackground_Sky.y, myBackground_Sky.width, myBackground_Sky.height);
+                ctx.drawImage(myBackground_Mountains.image, myBackground_Mountains.x + myBackground_Mountains.width, myBackground_Mountains.y, myBackground_Mountains.width, myBackground_Mountains.height);
+                ctx.drawImage(myBackground_Ocean.image, myBackground_Ocean.x + myBackground_Ocean.width, myBackground_Ocean.y, myBackground_Ocean.width, myBackground_Ocean.height);
+                ctx.drawImage(myBackground_Ground.image, myBackground_Ground.x + myBackground_Ground.width, myBackground_Ground.y, myBackground_Ground.width, myBackground_Ground.height);
+
                 myGameArea.frameNo += 1;
                 if (myGameArea.frameNo == 1 || everyinterval(150)) {
                     x = myGameArea.canvas.width;
