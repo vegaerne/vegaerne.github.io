@@ -6,7 +6,7 @@
             border: 1px solid #d3d3d3;
         }
     </style>
-    <head> Test Game 1.4h</head>
+    <head> Test Game 1.5</head>
     <body>
         <script>
 
@@ -18,6 +18,8 @@
             var myBackground_Mountains;
             var myBackground_Ocean;
             var myBackground_Ground;
+            var gameRunning = false;
+            var gamePaused = false;
 
             function startGame() {
                 myGamePiece = new component(30,20, "Penguin1.png", 10, 120, "image");
@@ -27,6 +29,7 @@
                 myBackground_Ocean = new component(480, 270, "Ocean.png", 0, 0, "image");
                 myBackground_Ground = new component(480, 270, "Background_Ground.png", 0, 0, "image");
                 myGameArea.start();
+                gameRunning = true;
             }
     
             var myGameArea = {
@@ -230,6 +233,17 @@
                 myGamePiece.newPos();
                 myGamePiece.update();
             }
+
+            function pauseGame() {
+            if (!gameRunning) return;
+            gamePaused = !gamePaused;
+            if (gamePaused) {
+                myGameArea.stop();
+            } else {
+                myGameArea.interval = setInterval(updateGameArea, 20);
+            }
+        }
+
         </script>
     <div>
         <button onclick = "startGame()">Start</button>
