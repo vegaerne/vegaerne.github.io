@@ -6,7 +6,7 @@
             border: 1px solid #d3d3d3;
         }
     </style>
-    <head> Test Game 1.4b</head>
+    <head> Test Game 1.4c</head>
     <body onload = "startGame()">
         <script>
 
@@ -137,17 +137,19 @@
                 myBackground_Ocean.x -= speedOcean;
                 myBackground_Ground.x -= speedGround;
 
+                let overlap = 1;
+
                 if (myBackground_Sky.x <= -myBackground_Sky.width) {
-                    myBackground_Sky.x = 0;
+                    myBackground_Sky.x = 0 - overlap;
                 }
                 if (myBackground_Mountains.x <= -myBackground_Mountains.width) {
-                    myBackground_Mountains.x = 0;
+                    myBackground_Mountains.x = 0 - overlap;
                 }
                 if (myBackground_Ocean.x <= -myBackground_Ocean.width) {
-                    myBackground_Ocean.x = 0;
+                    myBackground_Ocean.x = 0 - overlap;
                 }
                 if (myBackground_Ground.x <= -myBackground_Ground.width) {
-                    myBackground_Ground.x = 0;
+                    myBackground_Ground.x = 0 - overlap;
                 }
 
                 myBackground_Sky.update();
