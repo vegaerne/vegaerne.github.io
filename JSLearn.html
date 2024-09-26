@@ -6,7 +6,7 @@
             border: 1px solid #d3d3d3;
         }
     </style>
-    <head> Test Game 1.4</head>
+    <head> Test Game 1.4a</head>
     <body onload = "startGame()">
         <script>
 
@@ -15,7 +15,7 @@
             var myScore;
             var frameCounter = 0;
             var myBackground_Sky;
-            var myBackground_Moutains;
+            var myBackground_Mountains;
             var myBackground_Ocean;
             var myBackground_Ground;
 
@@ -133,15 +133,15 @@
                 var speedGround = 1.1;
 
                 myBackground_Sky.x -= speedSky;
-                myBackground_Moutains -= speedMountain;
-                myBackground_Ocean -= speedOcean;
-                myBackground_Ground -= speedGround;
+                myBackground_Mountains.x -= speedMountain;
+                myBackground_Ocean.x -= speedOcean;
+                myBackground_Ground.x -= speedGround;
 
                 if (myBackground_Sky.x <= -myBackground_Sky.width) {
                     myBackground_Sky.x = 0;
                 }
                 if (myBackground_Mountains.x <= -myBackground_Mountains.width) {
-                    myBackground_Moutains.x = 0;
+                    myBackground_Mountains.x = 0;
                 }
                 if (myBackground_Ocean.x <= -myBackground_Ocean.width) {
                     myBackground_Ocean.x = 0;
@@ -149,6 +149,11 @@
                 if (myBackground_Ground.x <= -myBackground_Ground.width) {
                     myBackground_Ground.x = 0;
                 }
+
+                myBackground_Sky.update();
+                myBackground_Mountains.update();
+                myBackground_Ocean.update();
+                myBackground_Ground.update();
 
                 myGameArea.frameNo += 1;
                 if (myGameArea.frameNo == 1 || everyinterval(150)) {
@@ -204,11 +209,7 @@
                         myGamePiece.image.src = "Penguin2.png";
                     }
                 }
-                myBackground_Sky.update();
-                myBackground_Moutains.update();
-                myBackground_Ocean.update();
-                myBackground_Ground.update();
-                myBackground.update();
+                
                 myScore.text = "SCORE:" + myGameArea.frameNo;
                 myScore.update();
                 myGamePiece.newPos();
