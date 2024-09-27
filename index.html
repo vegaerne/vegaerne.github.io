@@ -1,216 +1,253 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <style>
-    canvas {
-      border: 1px solid #d3d3d3;
-      background-color: #f1f1f1;
-    }
-  </style>
-</head>
-  <body onload = "startGame()">
-    <script>
-      
-      var myGamePiece;
-      var myObstacles = [];
-      var myScore;
-      var character2;
-
-      function startGame() {
-        myGamePiece = new gameObject(29, 16, "penguin.gif", 10, 120, "image");
-        character2 = new gameObject(20, 20, "yellow", 20, 150);
-
-        myGamePiece.gravity = 0.05;
-        character2.gravity = 0.05;
-        myScore  = new gameObject("30px", "Consolas", "black", 280, 40, "text");
-
-        
-        myGameArea.start();
-      }
-
-      var myGameArea = {
-        canvas : document.createElement("canvas"),
-        start : function() {
-          this.canvas.width = 720;
-          this.canvas.height = 540;
-          this.context = this.canvas.getContext("2d");
-          document.body.insertBefore(this.canvas, document.body.childNodes[0]);
-          this.frameNo = 0;
-          this.interval = setInterval(updateGameArea, 20);
-          window.addEventListener('keydown', function (e) {
-            myGameArea.key = e.keyCode;
-          })
-          window.addEventListener('keyup', function (e) {
-            myGameArea.key = false;
-          })
-          },
-        clear : function () {
-          this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        canvas {
+            border: 1px solid #d3d3d3;
         }
-      }
+    </style>
+    <head> Test Game 1.5</head>
+    <body>
+        <script>
 
-      function gameObject(width, height, color, x, y, type) {
-        this.type = type;
-        if (type == "image") {
-          this.image = new Image();
-          this.image.src = color;
-           }
-        this.score = 0;
-        this.width = width;
-        this.height = height;
-        this.speedX = 0;
-        this.speedY = 0;
-        this.x = x;
-        this.y = y;
-        this.gravity = 0;
-        this.gravitySpeed = 0;
-        this.update = function() {
-          ctx = myGameArea.context;
-          if (this.type == "text") {
-            ctx.font = this.width + " " + this.height;
-            ctx.fillStyle = color;
-            ctx.fillText(this.text, this.x, this.y);
-          } 
-            else if (type == "image") {
-            ctx.drawImage(this.image,
-              this.x,
-              this.y,
-              this.width, this.height);
-          } else {
-            ctx.fillStyle = color;
-            ctx.fillRect(this.x, this.y, this.width, this.height);
-          }
+            var myGamePiece;
+            var myObstacles = [];
+            var myScore;
+            var frameCounter = 0;
+            var myBackground_Sky;
+            var myBackground_Mountains;
+            var myBackground_Ocean;
+            var myBackground_Ground;
+            var gameRunning = false;
+            var gamePaused = false;
+
+            function startGame() {
+                myGamePiece = new component(30,20, "Penguin1.png", 10, 120, "image");
+                myScore = new component("30px", "Consolas", "black", 280, 40, "text");
+                myBackground_Sky = new component(480, 270, "Sky.png", 0, 0, "image");
+                myBackground_Mountains = new component(480, 270, "Background_Mountains.png", 0, 0, "image");
+                myBackground_Ocean = new component(480, 270, "Ocean.png", 0, 0, "image");
+                myBackground_Ground = new component(480, 270, "Background_Ground.png", 0, 0, "image");
+                myGameArea.start();
+                gameRunning = true;
+            }
+    
+            var myGameArea = {
+                canvas : document.createElement("canvas"),
+                start : function() {
+                    this.canvas.width = 480;
+                    this.canvas.height = 270;
+                    this.context = this.canvas.getContext("2d");
+                    document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+                    this.frameNo = 0;
+                    this.interval = setInterval(updateGameArea, 20);
+                    window.addEventListener('keydown', function (e) {
+                        myGameArea.keys = (myGameArea.keys || []);
+                        myGameArea.keys[e.keyCode] = true;
+                    })
+                    window.addEventListener('keyup', function (e) {
+                        myGameArea.keys [e.keyCode] = false;
+                    })
+                    window.addEventListener('touchmove', function (e) {
+                        myGameArea.x = e.touches[0].screenX;
+                        myGameArea.y = e.touches[0].screenY;
+                    })
+                },
+                clear : function() {
+                    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                },
+                stop : function() {
+                    clearInterval(this.interval);
+                }
+            }
+
+            function everyinterval(n) {
+                if ((myGameArea.frameNo / n) % 1 == 0) {return true;}
+                return false;
+            }
+    
+            function component(width, height, color, x, y, type) {
+                this.type = type;
+                if (type == "image") {
+                    this.image = new Image();
+                    this.image.src = color;
+                }
+                this.width = width;
+                this.height = height;
+                this.speedX = 0;
+                this.speedY = 0;
+                this.x = x;
+                this.y = y;
+                this.update = function(){
+                    ctx = myGameArea.context;
+                    if (this.type == "text") {
+                        ctx.font = this.width + " " + this.height;
+                        ctx.fillStyle = color;
+                        ctx.fillText(this.text, this.x, this.y);
+                    } else
+                        if (this.type == "image") {
+                            ctx.drawImage(this.image,
+                                this.x,
+                                this.y,
+                                this.width, this.height);
+                        }
+                        else {
+                            ctx.fillStyle = color;
+                            ctx.fillRect(this.x, this.y, this.width, this.height);
+                        }
+                }
+                this.newPos = function() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                }
+                this.crashWith = function(otherobj) {
+                    var myleft = this.x;
+                    var myright = this.x + (this.width);
+                    var mytop = this.y;
+                    var mybottom = this.y + (this.height);
+                    var otherleft = otherobj.x;
+                    var otherright = otherobj.x + (otherobj.width);
+                    var othertop = otherobj.y;
+                    var otherbottom = otherobj.y + (otherobj.height);
+                    var crash = true;
+                    if ((mybottom < othertop) ||
+                    (mytop > otherbottom) ||
+                    (myright < otherleft) ||
+                    (myleft > otherright)) {
+                        crash = false;
+                    }
+                    return crash;
+                }
+            }
+            
+            function updateGameArea() {
+                var x, height, gap, minHeight, maxHeight, minGap, maxGap, point;
+                var fly;
+                for (i = 0; i < myObstacles.length; i += 1) {
+                    if (myGamePiece.crashWith(myObstacles[i])) {
+                        myGameArea.stop();
+                        return;
+                    }
+                }
+                myGameArea.clear();
+                var speedSky = .2;
+                var speedMountain = .5;
+                var speedOcean = 1.2;
+                var speedGround = 2;
+
+                myBackground_Sky.x -= speedSky;
+                myBackground_Mountains.x -= speedMountain;
+                myBackground_Ocean.x -= speedOcean;
+                myBackground_Ground.x -= speedGround;
+
+                let overlap = 2;
+
+                if (myBackground_Sky.x <= -myBackground_Sky.width) {
+                    myBackground_Sky.x = 0 - overlap;
+                }
+                if (myBackground_Mountains.x <= -myBackground_Mountains.width) {
+                    myBackground_Mountains.x = 0 - overlap;
+                }
+                if (myBackground_Ocean.x <= -myBackground_Ocean.width) {
+                    myBackground_Ocean.x = 0 - overlap;
+                }
+                if (myBackground_Ground.x <= -myBackground_Ground.width) {
+                    myBackground_Ground.x = 0 - overlap;
+                }
+
+                myBackground_Sky.update();
+                myBackground_Mountains.update();
+                myBackground_Ocean.update();
+                myBackground_Ground.update();
+
+                ctx.drawImage(myBackground_Sky.image, myBackground_Sky.x, myBackground_Sky.y, myBackground_Sky.width, myBackground_Sky.height);
+                ctx.drawImage(myBackground_Sky.image, myBackground_Sky.x + myBackground_Sky.width - overlap, myBackground_Sky.y, myBackground_Sky.width, myBackground_Sky.height);
+
+                ctx.drawImage(myBackground_Mountains.image, myBackground_Mountains.x, myBackground_Mountains.y, myBackground_Mountains.width, myBackground_Mountains.height);
+                ctx.drawImage(myBackground_Mountains.image, myBackground_Mountains.x + myBackground_Mountains.width - overlap, myBackground_Mountains.y, myBackground_Mountains.width, myBackground_Mountains.height);
+
+                ctx.drawImage(myBackground_Ocean.image, myBackground_Ocean.x, myBackground_Ocean.y, myBackground_Ocean.width, myBackground_Ocean.height);
+                ctx.drawImage(myBackground_Ocean.image, myBackground_Ocean.x + myBackground_Ocean.width - overlap, myBackground_Ocean.y, myBackground_Ocean.width, myBackground_Ocean.height);
+
+                ctx.drawImage(myBackground_Ground.image, myBackground_Ground.x, myBackground_Ground.y, myBackground_Ground.width, myBackground_Ground.height);
+                ctx.drawImage(myBackground_Ground.image, myBackground_Ground.x + myBackground_Ground.width - overlap, myBackground_Ground.y, myBackground_Ground.width, myBackground_Ground.height);
+
+
+                myGameArea.frameNo += 1;
+                if (myGameArea.frameNo == 1 || everyinterval(150)) {
+                    x = myGameArea.canvas.width;
+                    minHeight = 20;
+                    maxHeight = 200;
+                    height = Math.floor(Math.random() * (maxHeight - minHeight + 1) + minHeight);
+                    minGap = 45;
+                    maxGap = 150;
+                    gap = Math.floor(Math.random() * (maxGap-minGap + 1) + minGap);
+                    myObstacles.push(new component(10, height, "green", x, 0));
+                    myObstacles.push(new component(10, x - height - gap, "green", x, height + gap));
+                }
+                for (i = 0; i < myObstacles.length; i += 1) {
+                    myObstacles[i].x += -1;
+                    myObstacles[i].update();
+                }
+                myGamePiece.speedX = 0;
+                myGamePiece.speedY = 0;
+
+                if (myGameArea.keys && myGameArea.keys[37]) {
+                    myGamePiece.speedX = -1;
+                }
+                if (myGameArea.keys && myGameArea.keys[39]) {
+                    myGamePiece.speedX = 1; 
+                }
+                if (myGameArea.keys && myGameArea.keys[38]) {
+                    myGamePiece.speedY = -1;
+                }
+                if (myGameArea.keys && myGameArea.keys[40]) {
+                    myGamePiece.speedY = 1;
+                }
+
+                if (myGameArea.x && myGameArea.y) {
+                    myGamePiece.x = myGameArea.x;
+                    myGamePiece.y = myGameArea.y;
+                }
+
+                let fastInterval = 10;
+                let slowInterval = 50;
+
+                frameCounter++;
+                if (myGameArea.keys && (myGameArea.keys[38] || myGameArea.keys[40])) {
+                    if (frameCounter % fastInterval < fastInterval / 2) {
+                        myGamePiece.image.src = "Penguin1.png";
+                    } else {
+                        myGamePiece.image.src = "Penguin2.png";
+                    }
+                } else {
+                    if (frameCounter % slowInterval < slowInterval /2) {
+                        myGamePiece.image.src = "Penguin1.png";
+                    } else {
+                        myGamePiece.image.src = "Penguin2.png";
+                    }
+                }
+                
+                myScore.text = "SCORE:" + myGameArea.frameNo;
+                myScore.update();
+                myGamePiece.newPos();
+                myGamePiece.update();
+            }
+
+            function pauseGame() {
+            if (!gameRunning) return;
+            gamePaused = !gamePaused;
+            if (gamePaused) {
+                myGameArea.stop();
+            } else {
+                myGameArea.interval = setInterval(updateGameArea, 20);
+            }
         }
-        this.newPos = function() {
-          this.gravitySpeed += this.gravity;
-          this.x += this.speedX;
-          this.y += this.speedY + this.gravitySpeed;
-          this.hitBottom();
-        }
-        
-        this.hitBottom = function() {
-          var rockbottom = myGameArea.canvas.height - this.height;
-          if(this.y >rockbottom) {
-            this.y = rockbottom;
-            this.gravitySpeed = 0;
-          }
-        }
 
-        this.crashWith = function(otherobj) {
-          var myleft = this.x;
-          var myright = this.x + (this.width);
-          var mytop = this.y;
-          var mybottom = this.y + (this.height);
-          var otherleft = otherobj.x;
-          var otherright = otherobj.x + (otherobj.width);
-          var othertop = otherobj.y;
-          var otherbottom = otherobj.y + (otherobj.height);
-          var crash = true;
-          if ((mybottom < othertop) || (mytop > otherbottom) || (myright < otherleft) || (myleft > otherright)) {
-            crash = false;
-          }
-          return crash;
-        }
-      }
-
-      function updateGameArea() {
-  var x, height, gap, minHeight, minGap, maxGap;
-
-  // Handle crashes for myGamePiece
-  for (i = 0; i < myObstacles.length; i += 1) {
-    if (myGamePiece.crashWith(myObstacles[i])) {
-      return;
-    }
-  }
-  
-  // Handle crashes for character2
-  for (i = 0; i < myObstacles.length; i += 1) {
-    if (character2.crashWith(myObstacles[i])) {
-      return;
-    }
-  }
-  
-  myGameArea.clear();
-  myGameArea.frameNo += 1;
-
-  // Creating new obstacles at intervals
-  if (myGameArea.frameNo == 1 || everyinterval(150)) {
-    x = myGameArea.canvas.width;
-    minHeight = 20;
-    maxHeight = 200;
-    height = Math.floor(Math.random() * (maxHeight - minHeight + 1) + minHeight);
-    minGap = 50;
-    maxGap = 200;
-    gap = Math.floor(Math.random() * (maxGap - minGap + 1) + minGap);
-    myObstacles.push(new gameObject(10, height, "green", x, 0));
-    myObstacles.push(new gameObject(10, x - height - gap, "green", x, height + gap));
-  }
-
-  // Move obstacles
-  for (i = 0; i < myObstacles.length; i += 1) {
-    myObstacles[i].x += -1;
-    myObstacles[i].update();
-  }
-
-  // Reset the speed of the objects
-  myGamePiece.speedX = 0;
-  myGamePiece.speedY = 0;
-  character2.speedX = 0;
-  character2.speedY = 0;
-
-  // Control myGamePiece with arrow keys
-  if (myGameArea.key && myGameArea.key == 37) {
-    myGamePiece.speedX = -4;
-  }
-  if (myGameArea.key && myGameArea.key == 39) {
-    myGamePiece.speedX = 4;
-  }
-  if (myGameArea.key && myGameArea.key == 38) {
-    myGamePiece.speedY = -4;
-  }
-  if (myGameArea.key && myGameArea.key == 40) {
-    myGamePiece.speedY = 4;
-  }
-
-  if (myGameArea.key && myGameArea.key == 65) {
-    character2.speedX = -4;
-  }
-  if (myGameArea.key && myGameArea.key == 68) {
-    character2.speedX = 4;
-  }
-  if (myGameArea.key && myGameArea.key == 87) {
-    character2.speedY = -4;
-  }
-  if (myGameArea.key && myGameArea.key == 83) {
-    character2.speedY = 4;
-  }
-
-  // Update score and positions
-  myScore.text = "SCORE: " + myGameArea.frameNo;
-  myScore.update();
-  myGamePiece.newPos();
-  myGamePiece.update();
-  character2.newPos();
-  character2.update();
-}
-
-
-      function everyinterval(n) {
-          if ((myGameArea.frameNo / n) % 1 == 0) {return true;}
-          return false;
-      }
-
-      function accelerate(n) {
-        myGamePiece.gravity = n;
-        character2.gravity = n;
-      }
-    </script>
-
-    <br>
-    <button onmousedown = "accelerate(-0.2)" onmouseup = "accelerate(0.05)">ACCELERATE</button>
-    <p> Use the ACCELERATE button to stay in the air</p>
-    <p>How long can you stay alive?</p>
-    <p>Ver 1.12a</p>
-  </body>
+        </script>
+    <div>
+        <button onclick = "startGame()">Start</button>
+        <button onclick = "pauseGame()">Pause/Continue</button>
+        </div>
+    </body>
 </html>
