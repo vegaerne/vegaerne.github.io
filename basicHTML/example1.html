@@ -1,6 +1,6 @@
 <p id="demo"></p>
 
-<table>
+<table id = "tableOne">
 
     <tr>
       <td> 1 </td>
@@ -27,4 +27,10 @@
 
 <script>
     document.getElementById("demo").innerHTML = "Hello Oneonta!";
+    tableRef = document.getElementById("tableOne");
+    var row = tableRef.insertRow(0);
+    for(col = 1;  col < 10; col++) {
+         var cellRef = row.insertCell(0);
+        cellRef.innerHTML = col;
+    }
 </script>
